@@ -1,9 +1,10 @@
+/* global fetch */
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 
 const store = new Store(new RecordSource());
 
-const network = Network.create((operation, variables) => {
-  return fetch('/graphql', {
+const network = Network.create((operation, variables) =>
+  fetch('/graphql', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -13,8 +14,8 @@ const network = Network.create((operation, variables) => {
       query: operation.text,
       variables
     })
-  }).then(response => response.json());
-});
+  }).then(response => response.json())
+);
 
 const environment = new Environment({ network, store });
 

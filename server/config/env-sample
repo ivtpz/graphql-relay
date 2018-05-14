@@ -1,0 +1,3 @@
+# If you change the server port, be sure to change it in client/package.json under "proxy" as well
+HTTP_PORT=5000
+DEBUG=server*
