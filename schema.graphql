@@ -1,0 +1,54 @@
+schema {
+  query: RootQuery
+}
+
+type Customer implements Node {
+  id: ID!
+  index: Int
+  guid: String!
+  isActive: Boolean
+  age: Int
+  name: Name
+  orders: [Order]
+}
+
+type CustomerConnection {
+  edges: [CustomerEdge]
+  pageInfo: PageInfo!
+}
+
+type CustomerEdge {
+  cursor: String!
+  node: Customer
+}
+
+type Name {
+  first: String
+  last: String
+}
+
+interface Node {
+  id: ID!
+}
+
+type Order implements Node {
+  id: ID!
+  index: Int!
+  guid: String!
+  customer: Customer!
+  total: String!
+  date: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type RootQuery {
+  customer(id: ID!): Customer
+  customers(first: Int, last: Int, before: String, after: String): CustomerConnection
+}
+
