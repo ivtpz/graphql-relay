@@ -1,14 +1,19 @@
+import * as customerResolvers from './customers';
+import * as mockCustomerResolvers from '../mocks/customers';
+import * as mockOrderResolvers from '../mocks/order';
+import * as orderResolvers from './order';
+
 const resolvers = {
-  // Mutation: {
-  //   upvotePost: (_, { postId }) => {
-  //     const post = find(posts, { id: postId });
-  //     if (!post) {
-  //       throw new Error(`Couldn't find post with id ${postId}`);
-  //     }
-  //     post.votes += 1;
-  //     return post;
-  //   }
-  // },
+  ...customerResolvers,
+  ...orderResolvers
 };
 
-export default resolvers;
+const exportedResolvers = process.env.MOCK_GRAPHQL_RESOLVERS
+  ? {
+    ...resolvers,
+    ...mockCustomerResolvers,
+    ...mockOrderResolvers
+  }
+  : resolvers;
+
+export default exportedResolvers;
