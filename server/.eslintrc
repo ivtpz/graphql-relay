@@ -1,3 +1,13 @@
 {
-  "extends": "bravissimo"
+  "extends": "bravissimo",
+  "rules": {
+    "import/first": ["error", { "absolute-first": "off" }],
+    "sort-imports": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreMemberSort": true
+      }
+    ]
+  }
 }
