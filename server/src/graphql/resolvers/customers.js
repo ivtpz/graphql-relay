@@ -1,7 +1,7 @@
 // Placeholder
 export const getCustomer = id => ({
   index: 2,
-  guid: 'e73b35c2-140e-46aa-be97-0d6b629711b7',
+  guid: id,
   isActive: false,
   age: 23,
   name: {

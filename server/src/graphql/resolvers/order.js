@@ -12,7 +12,7 @@ const getOrdersByCustomer = customerId => [
 
 const getOrder = id => ({
   index: 1,
-  guid: 'f38f9265-e69d-4476-938b-9cb13283f501',
+  guid: id,
   customerId: 'e73b35c2-140e-46aa-be97-0d6b629711b7',
   total: '$181.38',
   date: 'Tuesday, May 5, 2015 8:24 PM'
