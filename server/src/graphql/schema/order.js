@@ -1,15 +1,24 @@
-import Customer from './customer';
-import gql from '../syntaxHelpers';
+import { globalIdField, connectionDefinitions } from 'graphql-relay';
+import { GraphQLInt, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID } from 'graphql';
+import { zNodeInterface } from './zNode';
 
-const Order = gql`
-  type Order implements Node {
-    id: ID!
-    index: Int!
-    guid: String!
-    customer: Customer!
-    total: String!
-    date: String!
-  }
-`;
+const OrderType = new GraphQLObjectType({
+  name: 'Order',
+  description: 'A single order with customer data',
+  fields: () => ({
+    id: globalIdField('Order', order => order.guid),
+    index: { type: new GraphQLNonNull(GraphQLInt) },
+    guid: { type: new GraphQLNonNull(GraphQLID) },
+    total: { type: new GraphQLNonNull(GraphQLString) },
+    date: { type: new GraphQLNonNull(GraphQLString) }
+  }),
+  interfaces: [zNodeInterface],
+  isTypeOf: obj => !!obj.total
+});
 
-export default () => [Order, Customer];
+const { connectionType: OrderConnection } = connectionDefinitions({ nodeType: OrderType });
+
+export default {
+  OrderType,
+  OrderConnection
+};
