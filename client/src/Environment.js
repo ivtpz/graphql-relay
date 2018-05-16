@@ -14,8 +14,7 @@ const network = Network.create((operation, variables) =>
       query: operation.text,
       variables
     })
-  }).then(response => response.json())
-);
+  }).then(response => response.json()));
 
 const environment = new Environment({ network, store });
 

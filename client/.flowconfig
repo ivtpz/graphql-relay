@@ -1,0 +1,14 @@
+[ignore]
+.*/node_modules/styled-components/.*
+
+[include]
+./src
+
+[libs]
+./flow-typed/npm
+
+[lints]
+
+[options]
+
+[strict]

@@ -1,6 +1,11 @@
 {
-  "extends": "bravissimo-react",
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": ["flowtype"],
   "rules": {
-    "react/prop-types": "off"
+    "quotes": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "comma-dangle": "off",
+    "function-paren-newline": "off"
   }
 }

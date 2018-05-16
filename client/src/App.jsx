@@ -1,21 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+// @flow
+import * as React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
+import styled, { ThemeProvider } from 'styled-components';
+import theme from './theme';
+import NavigationMenu from './components/NavigationMenu/Menu/Menu';
+import Home from './layouts/Home/Home';
+import Customers from './layouts/Customers/Customers';
+import Products from './layouts/Products/Products';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+const paths = [
+  { to: '/', name: 'Home' },
+  { to: '/products', name: 'Products' },
+  { to: '/customers', name: 'Customers' },
+];
+
+const Page = styled.div`
+  text-align: center;
+`;
+
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <Page>
+      <BrowserRouter>
+        <>
+          <NavigationMenu paths={paths} />
+          <h1>Bravissimo C3 App</h1>
+          <Route exact path="/" component={Home} />
+          <Route path="/products" component={Products} />
+          <Route path="/customers" component={Customers} />
+        </>
+      </BrowserRouter>
+    </Page>
+  </ThemeProvider>
+);
 
 export default App;
