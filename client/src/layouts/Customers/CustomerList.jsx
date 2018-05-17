@@ -1,20 +1,34 @@
 // @flow
 import * as React from 'react';
+import styled from 'styled-components';
+import { Link } from 'found';
 import { graphql, createFragmentContainer } from 'react-relay';
 
 // Redo props for found
 type CustomerListProps = {
-  customers: any
+  customers: any,
+  children: React.Element
 };
 
-const CustomerList = ({ customers }: CustomerListProps) =>
-  customers.edges.map(({ node }) => (
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const CustomerList = ({ customers, children }: CustomerListProps) => (
+  <Container>
     <div>
-      <p>
-        {node.name.first} {node.name.last}
-      </p>
+      {customers.edges.map(({ node }) => (
+        <div key={node.guid}>
+          <Link to={`/customers/${node.guid}`}>
+            {node.name.first} {node.name.last}
+          </Link>
+        </div>
+      ))}
     </div>
-  ));
+    {children}
+  </Container>
+);
 
 export const CustomerListQuery = graphql`
   query CustomerListQuery {
@@ -31,7 +45,10 @@ export default createFragmentContainer(
       edges {
         node {
           guid
-          ...Customer_customer
+          name {
+            first
+            last
+          }
         }
       }
     }

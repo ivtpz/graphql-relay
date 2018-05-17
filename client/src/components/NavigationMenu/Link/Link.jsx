@@ -1,13 +1,17 @@
 // @flow
 import * as React from 'react';
 import styled from 'styled-components';
-import { Link as RouterLink, withRouter, type LocationShape } from 'react-router-dom';
+import { Link as RouterLink, withRouter } from 'found';
 import { type Path } from '../Menu/Menu';
 import { type Theme } from '../../../theme';
 
 type LinkProps = {
   path: Path,
-  location: LocationShape
+  match: {
+    location: {
+      pathname: string
+    }
+  }
 };
 
 type LinkWrapperProps = {
@@ -24,7 +28,7 @@ const LinkWrapper = styled.div`
 `;
 
 // Extend component props with props from withRouter
-const Link = ({ path, location: { pathname } }: LinkProps) => (
+const Link = ({ path, match: { location: { pathname } } }: LinkProps) => (
   <LinkWrapper active={path.to === pathname}>
     <RouterLink to={path.to}>{path.name}</RouterLink>
   </LinkWrapper>

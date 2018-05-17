@@ -6,10 +6,11 @@ import queryMiddleware from 'farce/lib/queryMiddleware';
 import createFarceRouter from 'found/lib/createFarceRouter';
 import createRender from 'found/lib/createRender';
 import { Resolver } from 'found-relay';
-import { injectGlobal } from 'styled-components';
+import { injectGlobal, ThemeProvider } from 'styled-components';
+import theme from './theme';
 import environment from './Environment';
 import routes from './layouts/routes';
-import { registerServiceWorker } from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 
 /* eslint-disable no-unused-expressions */
 injectGlobal`
@@ -29,5 +30,11 @@ const Router = createFarceRouter({
   render: createRender({})
 });
 
-ReactDOM.render(<Router resolver={new Resolver(environment)} />, document.getElementById('root'));
+const App = (
+  <ThemeProvider theme={theme}>
+    <Router resolver={new Resolver(environment)} />
+  </ThemeProvider>
+);
+
+ReactDOM.render(App, document.getElementById('root'));
 registerServiceWorker();

@@ -17,35 +17,26 @@ const CustomerName = styled.div`
 `;
 
 const Customer = ({ customer: { name, orders } }: CustomerRouteProps) => (
-  <>
-    <CustomerDetailsWrapper>
-      {name && (
-        <CustomerName>
-          {name.first} {name.last}
-        </CustomerName>
-      )}
-      {orders &&
-        orders.map(order => (
-          <div key={order.guid}>
-            {order.date}: {order.total}
-          </div>
-        ))}
-    </CustomerDetailsWrapper>
-  </>
+  <CustomerDetailsWrapper>
+    {name && (
+      <CustomerName>
+        {name.first} {name.last}
+      </CustomerName>
+    )}
+    {orders &&
+      orders.edges.map(({ node }) => (
+        <div key={node.guid}>
+          {node.date}: {node.total}
+        </div>
+      ))}
+  </CustomerDetailsWrapper>
 );
 
 export const CustomerQuery = graphql`
   query CustomerQuery($customerId: ID!) {
     customer(id: $customerId) {
       id
-      name {
-        first
-        last
-      }
-      orders {
-        total
-        date
-      }
+      ...Customer_customer
     }
   }
 `;
@@ -57,6 +48,15 @@ export default createFragmentContainer(
       name {
         first
         last
+      }
+      orders {
+        edges {
+          node {
+            guid
+            total
+            date
+          }
+        }
       }
     }
   `

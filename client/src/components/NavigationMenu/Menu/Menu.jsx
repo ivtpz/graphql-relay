@@ -8,9 +8,9 @@ export type Path = {
   name: string
 };
 
-type MenuProps = {
+type Props = {
   paths: Path[]
-};
+}
 
 // Basic example of styling with styled components
 const MenuWrapper = styled.div`
@@ -18,8 +18,7 @@ const MenuWrapper = styled.div`
   display: flex;
 `;
 
-const Menu = ({ paths }: MenuProps) => (
-  <MenuWrapper>{paths.map(path => <Link path={path} key={path.name} />)}</MenuWrapper>
-);
+const Menu = ({ paths }: Props) =>
+  <MenuWrapper>{paths.map(path => <Link path={path} key={path.name} />)}</MenuWrapper>;
 
 export default Menu;

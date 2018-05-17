@@ -1,12 +1,8 @@
 // @flow
 import * as React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
 import styled, { ThemeProvider } from 'styled-components';
 import theme from './theme';
 import NavigationMenu from './components/NavigationMenu/Menu/Menu';
-import Home from './layouts/Home/Home';
-import Customers from './layouts/Customers/Customers';
-import Products from './layouts/Products/Products';
 
 const paths = [
   { to: '/', name: 'Home' },
@@ -18,19 +14,21 @@ const Page = styled.div`
   text-align: center;
 `;
 
-const App = () => (
+/* eslint-disable */
+const AppProps = {
+  children: Element
+};
+/* eslint-enable */
+
+const App = ({ children }: AppProps) => (
   <ThemeProvider theme={theme}>
+  <>
+    <NavigationMenu paths={paths} />
     <Page>
-      <BrowserRouter>
-        <>
-          <NavigationMenu paths={paths} />
-          <h1>Bravissimo C3 App</h1>
-          <Route exact path="/" component={Home} />
-          <Route path="/products" component={Products} />
-          <Route path="/customers" component={Customers} />
-        </>
-      </BrowserRouter>
+      <h1>Bravissimo C3 App</h1>
+      {children}
     </Page>
+    </>
   </ThemeProvider>
 );
 
