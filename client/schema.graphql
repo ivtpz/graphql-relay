@@ -89,13 +89,19 @@ type PageInfo {
 }
 
 type RootQuery {
-  customer(id: ID): Customer
-  customers(after: String, first: Int, before: String, last: Int): CustomerConnection
+  Customer(id: ID): Customer
+  Customers(after: String, first: Int, before: String, last: Int): CustomerConnection
+  viewer: Viewer
 
   # Fetches an object given its ID
   node(
     # The ID of an object
     id: ID!
   ): Node
+}
+
+type Viewer {
+  customer(id: ID): Customer
+  customers(after: String, first: Int, before: String, last: Int): CustomerConnection
 }
 
