@@ -5,7 +5,8 @@ import React from 'react';
 import App from '../App';
 import Home from './Home/Home';
 import CustomerList, { CustomerListQuery } from './Customers/CustomerList';
-import Customer, { CustomerQuery } from './Customers/Customer/Customer';
+import Customer from './Customers/Customer/Customer';
+import CustomerQuery from './Customers/Customer/CustomerQuery';
 import Products from './Products/Products';
 
 export default makeRouteConfig(
@@ -15,7 +16,17 @@ export default makeRouteConfig(
       path="products"
       Component={Products}
     />
-    <Route path="customers" Component={CustomerList} query={CustomerListQuery}>
+    <Route
+      path="customers"
+      Component={CustomerList}
+      query={CustomerListQuery}
+      prepareVariables={params => ({
+        ...params,
+        count: 5,
+        cursor: null
+      })}
+    >
+      {/* customerId will be passed as a variable to the customerQuery */}
       <Route path=":customerId" Component={Customer} query={CustomerQuery} />
     </Route>
   </Route>
