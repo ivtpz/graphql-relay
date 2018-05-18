@@ -14,11 +14,9 @@ const Page = styled.div`
   text-align: center;
 `;
 
-/* eslint-disable */
-const AppProps = {
-  children: Element
+type AppProps = {
+  children: React.Element<any>
 };
-/* eslint-enable */
 
 const App = ({ children }: AppProps) => (
   <ThemeProvider theme={theme}>
